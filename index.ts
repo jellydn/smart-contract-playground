@@ -4,10 +4,8 @@ import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.0.20/dist/ethers.e
 
 (async () => {
   const { API_URL } = config();
-  const { addr, network_id: networkId, abi } = await ky
-    // @ts-expect-error  TS2339 [ERROR]: Property 'get' does
-    .get(API_URL)
-    .json();
+  // @ts-expect-error Property 'get' does not exist on type
+  const { addr, network_id: networkId, abi } = await ky.get(API_URL).json();
 
   const networkMapping: Record<number, string> = {
     3: "https://ropsten.infura.io/v3/f48d2390e5f6481286e37db0cf443116",
@@ -16,13 +14,13 @@ import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.0.20/dist/ethers.e
   };
   console.warn({ addr, networkId, abi });
   const url = networkMapping[networkId];
-  
-  if(!url) throw new Error(`Not supported yet for ${networkId}`);  
+
+  if (!url) throw new Error(`Not supported yet for ${networkId}`);
   const provider = new ethers.providers.JsonRpcProvider(url);
 
   const contract = new ethers.Contract(addr, JSON.parse(abi), provider);
   console.warn(contract);
-  // @ts-expect-error TS2339 [ERROR]: Property 'getWhitelist' does not exist on type 'Contract'.
+  // @ts-expect-error Property 'getSecTokenTypes' does not exist on type 'Contract'.
   const value = await contract.getSecTokenTypes();
 
   console.warn(value);

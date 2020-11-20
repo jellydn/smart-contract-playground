@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Huynh Duc Dung",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "deno run --allow-net --allow-read --watch --unstable  index.ts"
+  }
 }
