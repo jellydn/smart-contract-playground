@@ -4,6 +4,7 @@ import { ethers } from "https://cdn.jsdelivr.net/npm/ethers@5.0.20/dist/ethers.e
 
 (async () => {
   const { API_URL } = config();
+  if (!API_URL) throw new Error("Missing API_URL on .env file.");
   // @ts-expect-error Property 'get' does not exist on type
   const { addr, network_id: networkId, abi } = await ky.get(API_URL).json();
 
